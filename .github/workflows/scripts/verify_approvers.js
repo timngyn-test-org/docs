@@ -19,11 +19,6 @@ module.exports = {
       }
     } = context;
 
-    console.log(state);
-    console.log(login);
-    console.log(number);
-    console.log(ownerLogin);
-
     const reviewers = await github.rest.pulls.listRequestedReviewers({
       owner: ownerLogin,
       repo: name,
