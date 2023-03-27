@@ -16,101 +16,101 @@
 /src/utils @timngyn
  
 #JS
-/src/**/**/analytics @timngyn-acc1
-/src/**/**/api-graphql @timngyn-acc1
-/src/**/**/api-rest @timngyn-acc1
-/src/**/**/auth @timngyn-acc1
-/src/**/**/authentication @timngyn-acc1
-/src/**/**/graphqlapi @timngyn-acc1
-/src/**/**/in-app-messaging @timngyn-acc1
-/src/**/**/interactions @timngyn-acc1
-/src/**/**/predictions @timngyn-acc1
-/src/**/**/project-setup @timngyn-acc1
-/src/**/**/pubsub @timngyn-acc1
-/src/**/**/push-notifications @timngyn-acc1
-/src/**/**/restapi @timngyn-acc1
-/src/**/**/storage @timngyn-acc1
-/src/**/**/utilities @timngyn-acc1
-/src/**/lib @timngyn-acc1
-/src/**/lib-v1 @timngyn-acc1
-/src/**/sdk @timngyn-acc1
-/src/fragments/**/**/**/js @timngyn-acc1
-/src/fragments/**/**/common @timngyn-acc1
-/src/fragments/**/**/js @timngyn-acc1
-/src/fragments/**/**/native_common @timngyn-acc1
-/src/fragments/lib/js.mdx @timngyn-acc1
-/src/fragments/lib/reactnative.mdx @timngyn-acc1
-/src/fragments/react.mdx @timngyn-acc1
-/src/fragments/reactnative.mdx @timngyn-acc1
-/src/fragments/start/getting-started/angular @timngyn-acc1
-/src/fragments/start/getting-started/next @timngyn-acc1
-/src/fragments/start/getting-started/react @timngyn-acc1
-/src/fragments/start/getting-started/reactnative @timngyn-acc1
-/src/fragments/start/getting-started/vanillajs @timngyn-acc1
-/src/fragments/start/getting-started/vue @timngyn-acc1
-/src/fragments/web.mdx @timngyn-acc1
-/src/pages/guides/functions @timngyn-acc1
-/src/pages/start/getting-started @timngyn-acc1
+/src/**/**/analytics @@timngyn-test-org/team-1
+/src/**/**/api-graphql @timngyn-test-org/team-1
+/src/**/**/api-rest @timngyn-test-org/team-1
+/src/**/**/auth @timngyn-test-org/team-1
+/src/**/**/authentication @timngyn-test-org/team-1
+/src/**/**/graphqlapi @timngyn-test-org/team-1
+/src/**/**/in-app-messaging @timngyn-test-org/team-1
+/src/**/**/interactions @timngyn-test-org/team-1
+/src/**/**/predictions @timngyn-test-org/team-1
+/src/**/**/project-setup @timngyn-test-org/team-1
+/src/**/**/pubsub @timngyn-test-org/team-1
+/src/**/**/push-notifications @timngyn-test-org/team-1
+/src/**/**/restapi @timngyn-test-org/team-1
+/src/**/**/storage @timngyn-test-org/team-1
+/src/**/**/utilities @timngyn-test-org/team-1
+/src/**/lib @timngyn-test-org/team-1
+/src/**/lib-v1 @timngyn-test-org/team-1
+/src/**/sdk @timngyn-test-org/team-1
+/src/fragments/**/**/**/js @timngyn-test-org/team-1
+/src/fragments/**/**/common @timngyn-test-org/team-1
+/src/fragments/**/**/js @timngyn-test-org/team-1
+/src/fragments/**/**/native_common @timngyn-test-org/team-1
+/src/fragments/lib/js.mdx @timngyn-test-org/team-1
+/src/fragments/lib/reactnative.mdx @timngyn-test-org/team-1
+/src/fragments/react.mdx @timngyn-test-org/team-1
+/src/fragments/reactnative.mdx @timngyn-test-org/team-1
+/src/fragments/start/getting-started/angular @timngyn-test-org/team-1
+/src/fragments/start/getting-started/next @timngyn-test-org/team-1
+/src/fragments/start/getting-started/react @timngyn-test-org/team-1
+/src/fragments/start/getting-started/reactnative @timngyn-test-org/team-1
+/src/fragments/start/getting-started/vanillajs @timngyn-test-org/team-1
+/src/fragments/start/getting-started/vue @timngyn-test-org/team-1
+/src/fragments/web.mdx @timngyn-test-org/team-1
+/src/pages/guides/functions @timngyn-test-org/team-1
+/src/pages/start/getting-started @timngyn-test-org/team-1
 
 #DataStore
-/src/fragments/**/datastore @timngyn-acc1
-/src/pages/**/datastore @timngyn-acc1
+/src/fragments/**/datastore @timngyn-test-org/team-1
+/src/pages/**/datastore @timngyn-test-org/team-1
 
 #Geo
-/src/fragments/**/geo @timngyn-acc1
-/src/pages/**/geo @timngyn-acc1
+/src/fragments/**/geo @timngyn-test-org/team-1
+/src/pages/**/geo @timngyn-test-org/team-1
 
 #CLI
-/src/**/cli @timngyn-acc2
-/src/**/cli-legacy @timngyn-acc2
-/src/fragments/cli-install-block.mdx @timngyn-acc2
-/src/fragments/lib-v1/project-setup/native_common/prereq/cliInstall.mdx @timngyn-acc2
-/src/fragments/pull-cli-studio.mdx @timngyn-acc2
-/src/pages/console/adminui/extend-cli.mdx @timngyn-acc2
+/src/**/cli @timngyn-test-org/team-2
+/src/**/cli-legacy @timngyn-test-org/team-2
+/src/fragments/cli-install-block.mdx @timngyn-test-org/team-2
+/src/fragments/lib-v1/project-setup/native_common/prereq/cliInstall.mdx @timngyn-test-org/team-2
+/src/fragments/pull-cli-studio.mdx @timngyn-test-org/team-2
+/src/pages/console/adminui/extend-cli.mdx @timngyn-test-org/team-2
 
 #Android
-/src/fragments/**/**/android @timngyn-acc2
-/src/fragments/android.mdx @timngyn-acc2
-/src/fragments/guides/location-service/setting-up-your-app-android.mdx @timngyn-acc2
-/src/fragments/guides/location-service/tracking-device-location-android.mdx @timngyn-acc2
-/src/fragments/lib-v1/android-sdk.mdx @timngyn-acc2
-/src/fragments/lib-v1/android.mdx @timngyn-acc2
-/src/fragments/lib/android-escape-hatch-warning.mdx @timngyn-acc2
-/src/fragments/lib/android-kotlin-java-interop.mdx @timngyn-acc2
-/src/fragments/lib/android-sdk.mdx @timngyn-acc2
-/src/fragments/lib/android.mdx @timngyn-acc2
-/src/pages/start/sample-apps/todo-app/q/integration @timngyn-acc2
+/src/fragments/**/**/android @timngyn-test-org/team-2
+/src/fragments/android.mdx @timngyn-test-org/team-2
+/src/fragments/guides/location-service/setting-up-your-app-android.mdx @timngyn-test-org/team-2
+/src/fragments/guides/location-service/tracking-device-location-android.mdx @timngyn-test-org/team-2
+/src/fragments/lib-v1/android-sdk.mdx @timngyn-test-org/team-2
+/src/fragments/lib-v1/android.mdx @timngyn-test-org/team-2
+/src/fragments/lib/android-escape-hatch-warning.mdx @timngyn-test-org/team-2
+/src/fragments/lib/android-kotlin-java-interop.mdx @timngyn-test-org/team-2
+/src/fragments/lib/android-sdk.mdx @timngyn-test-org/team-2
+/src/fragments/lib/android.mdx @timngyn-test-org/team-2
+/src/pages/start/sample-apps/todo-app/q/integration @timngyn-test-org/team-2
 
 #Flutter
-/src/fragments/**/**/flutter @timngyn-acc2
-/src/fragments/lib-v1/project-setup/native_common/prereq/flutter_null_safety.mdx @timngyn-acc2
-/src/fragments/lib/flutter.mdx @timngyn-acc2
-/src/fragments/lib/project-setup/native_common/prereq/flutter_null_safety.mdx @timngyn-acc2
-/src/fragments/ui/auth/developer-preview-callout-flutter.mdx @timngyn-acc2
-/src/fragments/ui/flutter/installation.mdx @timngyn-acc2
+/src/fragments/**/**/flutter @timngyn-test-org/team-2
+/src/fragments/lib-v1/project-setup/native_common/prereq/flutter_null_safety.mdx @timngyn-test-org/team-2
+/src/fragments/lib/flutter.mdx @timngyn-test-org/team-2
+/src/fragments/lib/project-setup/native_common/prereq/flutter_null_safety.mdx @timngyn-test-org/team-2
+/src/fragments/ui/auth/developer-preview-callout-flutter.mdx @timngyn-test-org/team-2
+/src/fragments/ui/flutter/installation.mdx @timngyn-test-org/team-2
 
 #iOS
-/src/fragments/**/**/ios @timngyn-acc1
-/src/fragments/guides/datastore/parallel-processing-ios.mdx @timngyn-acc1
-/src/fragments/guides/location-service/setting-up-your-app-ios.mdx @timngyn-acc1
-/src/fragments/guides/location-service/tracking-device-location-ios.mdx @timngyn-acc1
-/src/fragments/lib-v1/ios-sdk.mdx @timngyn-acc1
-/src/fragments/lib-v1/ios-spm.mdx @timngyn-acc1
-/src/fragments/lib-v1/ios.mdx @timngyn-acc1
-/src/fragments/lib/ios-escape-hatch-warning.mdx @timngyn-acc1
-/src/fragments/lib/ios-prereq-category.mdx @timngyn-acc1
-/src/fragments/lib/ios-prereq-xcode.mdx @timngyn-acc1
-/src/fragments/lib/ios-sdk.mdx @timngyn-acc1
-/src/fragments/lib/ios-spm.mdx @timngyn-acc1
-/src/fragments/lib/ios.mdx @timngyn-acc1
-/src/fragments/sdk/sdk-api-ref/ios.mdx @timngyn-acc1
+/src/fragments/**/**/ios @timngyn-test-org/team-1
+/src/fragments/guides/datastore/parallel-processing-ios.mdx @timngyn-test-org/team-1
+/src/fragments/guides/location-service/setting-up-your-app-ios.mdx @timngyn-test-org/team-1
+/src/fragments/guides/location-service/tracking-device-location-ios.mdx @timngyn-test-org/team-1
+/src/fragments/lib-v1/ios-sdk.mdx @timngyn-test-org/team-1
+/src/fragments/lib-v1/ios-spm.mdx @timngyn-test-org/team-1
+/src/fragments/lib-v1/ios.mdx @timngyn-test-org/team-1
+/src/fragments/lib/ios-escape-hatch-warning.mdx @timngyn-test-org/team-1
+/src/fragments/lib/ios-prereq-category.mdx @timngyn-test-org/team-1
+/src/fragments/lib/ios-prereq-xcode.mdx @timngyn-test-org/team-1
+/src/fragments/lib/ios-sdk.mdx @timngyn-test-org/team-1
+/src/fragments/lib/ios-spm.mdx @timngyn-test-org/team-1
+/src/fragments/lib/ios.mdx @timngyn-test-org/team-1
+/src/fragments/sdk/sdk-api-ref/ios.mdx @timngyn-test-org/team-1
 
 #Studio
-/src/pages/console @timngyn-acc1
+/src/pages/console @timngyn-test-org/team-1
 
 #Hosting
-/src/fragments/**/hosting @timngyn-acc1
-/src/pages/**/hosting @timngyn-acc1
+/src/fragments/**/hosting @timngyn-test-org/team-1
+/src/pages/**/hosting @timngyn-test-org/team-1
 
 #UI
-/src/**/ui @timngyn-acc2
+/src/**/ui @timngyn-test-org/team-2
