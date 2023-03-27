@@ -16,7 +16,7 @@
 /src/utils @timngyn
  
 #JS
-/src/**/**/analytics @@timngyn-test-org/team-1
+/src/**/**/analytics @timngyn-test-org/team-1
 /src/**/**/api-graphql @timngyn-test-org/team-1
 /src/**/**/api-rest @timngyn-test-org/team-1
 /src/**/**/auth @timngyn-test-org/team-1
