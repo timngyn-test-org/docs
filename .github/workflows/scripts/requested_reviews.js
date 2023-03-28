@@ -8,10 +8,6 @@ module.exports = {
         repository: {
           owner: { login: ownerLogin },
           name
-        },
-        review: {
-          state,
-          user: { login }
         }
       }
     } = context;
