@@ -1,5 +1,4 @@
 module.exports = {
-  commentListOfReviewers: () => {},
   verifyApprovers: async ({ github, context }) => {
     // Listens for review submissions to update a comment on PR to keep track of who has actually approved
     // against who was originally requested
@@ -19,21 +18,6 @@ module.exports = {
       }
     } = context;
 
-    const reviewers = await github.rest.pulls.listRequestedReviewers({
-      owner: ownerLogin,
-      repo: name,
-      pull_number: number
-    });
-
-    const {
-      data: { users, teams }
-    } = reviewers;
-
-    console.log('listRequestedReviewers users: ', users);
-    console.log('listRequestedReviewers teams: ', teams);
-
-    
-
     // need to also check that all the reviewers actually approved
 
     const reviews = await github.rest.pulls.listReviews({
@@ -44,7 +28,7 @@ module.exports = {
 
     console.log('listReviews: ', reviews.data);
 
-    const trackRequestedReviewsComment = `From verify_approvals.yml
+    const trackRequestedReviewsComment = `From Verify Approvals workflow
     
     Still need approvals from:
     - 
