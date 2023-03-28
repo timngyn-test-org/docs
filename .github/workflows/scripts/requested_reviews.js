@@ -1,5 +1,5 @@
 module.exports = {
-  requestedReviewers: async ({github, context}) => {
+  requestedReviewers: async ({ github, context }) => {
     console.log(context);
 
     const {
@@ -9,9 +9,7 @@ module.exports = {
           owner: { login: ownerLogin },
           name
         },
-        organization: {
-          login: orgLogin
-        }
+        organization: { login: orgLogin }
       }
     } = context;
 
@@ -28,20 +26,17 @@ module.exports = {
     console.log('listRequestedReviewers users: ', users);
     console.log('listRequestedReviewers teams: ', teams);
 
-    const teamsArr = teams.map(e => `@${orgLogin}/${e.slug}`);
+    const teamsArr = teams.map((e) => `@${orgLogin}/${e.slug}`);
     const teamsText = teamsArr.join('\n- ');
 
-    const usersArr = users.map(e => `@${e.login}`);
-    const usersText = usersArr.join('\n- ')
-    
+    const usersArr = users.map((e) => `@${e.login}`);
+    const usersText = usersArr.join('\n- ');
 
-    const trackRequestedReviewsComment = 
-`From Verify Approvals workflow
+    const trackRequestedReviewsComment = `From Verify Approvals workflow
 
 Still need approvals from:`;
 
-    const body =
-`${trackRequestedReviewsComment}
+    const body = `${trackRequestedReviewsComment}
     
 - ${teamsText}
 - ${usersText}`;

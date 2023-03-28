@@ -18,7 +18,38 @@ module.exports = {
       }
     } = context;
 
-    // need to also check that all the reviewers actually approved
+    console.log('context.payload.review.user', context.payload.review.user);
+    console.log(
+      'context.payload.pull_request.requested_reviewers',
+      context.payload.pull_request.requested_reviewers
+    );
+    console.log(
+      'context.payload.pull_request.requested_teams',
+      context.payload.pull_request.requested_teams
+    );
+
+    // const trackApprovers = octokit
+    //   .paginate(
+    //     'GET /repos/{owner}/{repo}/issues/{issue_number}/comments',
+    //     { owner: ownerLogin, repo: name, issue_number: number },
+    //     (response) =>
+    //       response.data.filter(
+    //         (comment) =>
+    //           comment.user.login === 'github-actions[bot]' &&
+    //           comment.body.startsWith('From Verify Approvals workflow')
+    //       )
+    //   )
+    //   .then((comment) => {
+    //     console.log('found comment!!!', comment);
+
+    //     return comment;
+    //   });
+
+    octokit.rest.issues.listComments({
+      owner,
+      repo,
+      issue_number
+    });
 
     const reviews = await github.rest.pulls.listReviews({
       owner: ownerLogin,
@@ -29,9 +60,9 @@ module.exports = {
     console.log('listReviews: ', reviews.data);
 
     // const trackRequestedReviewsComment = `From Verify Approvals workflow
-    
+
     // Still need approvals from:
-    // - 
+    // -
     // `;
 
     // github.rest.issues.createComment({
