@@ -45,12 +45,6 @@ module.exports = {
     //     return comment;
     //   });
 
-    octokit.rest.issues.listComments({
-      owner,
-      repo,
-      issue_number
-    });
-
     const reviews = await github.rest.pulls.listReviews({
       owner: ownerLogin,
       repo: name,
