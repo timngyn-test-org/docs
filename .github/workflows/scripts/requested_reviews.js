@@ -8,6 +8,9 @@ module.exports = {
         repository: {
           owner: { login: ownerLogin },
           name
+        },
+        organization: {
+          login: orgLogin
         }
       }
     } = context;
@@ -25,10 +28,10 @@ module.exports = {
     console.log('listRequestedReviewers users: ', users);
     console.log('listRequestedReviewers teams: ', teams);
 
-    const teamsArr = teams.map(e => e.slug);
+    const teamsArr = teams.map(e => `@${orgLogin}/${e.slug}`);
     const teamsText = teamsArr.join('\n- ');
 
-    const usersArr = users.map(e => e.login);
+    const usersArr = users.map(e => `@${e.login}`);
     const usersText = usersArr.join('\n- ')
     
 
