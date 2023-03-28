@@ -28,17 +28,17 @@ module.exports = {
 
     console.log('listReviews: ', reviews.data);
 
-    const trackRequestedReviewsComment = `From Verify Approvals workflow
+    // const trackRequestedReviewsComment = `From Verify Approvals workflow
     
-    Still need approvals from:
-    - 
-    `;
+    // Still need approvals from:
+    // - 
+    // `;
 
-    github.rest.issues.createComment({
-      owner: ownerLogin,
-      repo: name,
-      issue_number: number,
-      body: 'test comment from workflow'
-    });
+    // github.rest.issues.createComment({
+    //   owner: ownerLogin,
+    //   repo: name,
+    //   issue_number: number,
+    //   body: 'test comment from workflow'
+    // });
   }
 };
