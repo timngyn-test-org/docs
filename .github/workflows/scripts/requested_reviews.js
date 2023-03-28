@@ -32,16 +32,16 @@ module.exports = {
     const usersText = usersArr.join('\n- ')
     
 
-    const trackRequestedReviewsComment = `From Verify Approvals workflow
-    
-    Still need approvals from:
-    `;
+    const trackRequestedReviewsComment = 
+`From Verify Approvals workflow
 
-    const body = `${trackRequestedReviewsComment}
+Still need approvals from:`;
+
+    const body =
+`${trackRequestedReviewsComment}
     
-    - ${teamsText}
-    - ${usersText}
-    `;
+- ${teamsText}
+- ${usersText}`;
 
     github.rest.issues.createComment({
       owner: ownerLogin,
