@@ -6,8 +6,6 @@ jobs:
   verifyApproval:
     name: Verify approvals
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write # Used to add comment to PR
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
