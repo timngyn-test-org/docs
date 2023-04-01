@@ -55,7 +55,7 @@ module.exports = {
       owner: ownerLogin,
       repo: name,
       pull_number: number
-    }, (response) => response.data.map((review) => review.data.user.login));
+    }, (response) => response.data.map((review) => review.user.login));
 
     console.log('listReviews: ', reviews.data);
 
