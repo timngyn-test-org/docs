@@ -34,7 +34,7 @@ module.exports = {
     // When a user submits their review (comment, approve, request changes), they are removed
     // from the list of requested reviewers.
     const prComments = await github.paginate(
-      rest.issues.listComments,
+      github.rest.issues.listComments,
       { owner: ownerLogin, repo: name, issue_number: number },
       (response) =>
         response.data.filter(
