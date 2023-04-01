@@ -51,7 +51,15 @@ module.exports = {
       pull_number: number
     });
 
+    const reviews2 = await github.paginate(github.rest.pulls.listReviews, {
+      owner: ownerLogin,
+      repo: name,
+      pull_number: number
+    }, (response) => response.map((review) => review.data.user.login));
+
     console.log('listReviews: ', reviews.data);
+
+    console.log('paginate listreviews', reviews2);
 
     // const trackRequestedReviewsComment = `From Verify Approvals workflow
 
