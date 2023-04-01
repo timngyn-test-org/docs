@@ -33,7 +33,7 @@ module.exports = {
     // Need to do this because Github API only shows who is currently requested.
     // When a user submits their review (comment, approve, request changes), they are removed
     // from the list of requested reviewers.
-    const prComments = await octokit.paginate(
+    const prComments = await github.paginate(
       rest.issues.listComments,
       { owner: ownerLogin, repo: name, issue_number: number },
       (response) =>
