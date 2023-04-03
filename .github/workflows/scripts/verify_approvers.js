@@ -81,6 +81,7 @@ module.exports = {
     reviews.forEach((review) => {
       // If there are teams, then we need to make another API call to check if that
       // reviewer is in the team or not
+      //
       // not sure if this works how it should, but ideally we just keep setting
       // the "review state" to what is found in the list of reviews so that when we're
       // done iterating through the array we can have the current state of reviews:
