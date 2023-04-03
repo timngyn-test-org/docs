@@ -81,11 +81,19 @@ module.exports = {
     reviews.forEach((review) => {
       // If there are teams, then we need to make another API call to check if that
       // reviewer is in the team or not
-      // not sure if this works how it should:
+      // not sure if this works how it should, but ideally we just keep setting
+      // the "review state" to what is found in the list of reviews so that when we're
+      // done iterating through the array we can have the current state of reviews:
       // if (requestedReviewersMap.has(review.userLogin)) {
-      //   requestedReviewersMap.set(review.userLogin);
+      //   requestedReviewersMap.set(review.userLogin, review.state);
       // }
     });
+
+    // After we have went through the list of reviews
+    // go through the object to see if everything is approved
+    // If everyone is all approved then we can merge the PR
+    // Otherwise we don't merge it.
+    // Should we add a comment to let people know that they still need to approve?
 
     // const trackRequestedReviewsComment = `From Verify Approvals workflow
 
