@@ -46,6 +46,19 @@ module.exports = {
 
     console.log('PR comments from the github bot: ', prComments);
 
+    const latestBotComment = prComments[prComments.length - 1].body;
+
+    const origRequestedReviewers = latestBotComment.str
+      .split('\n')
+      .filter((text) => text.startsWith('-'))
+      .map((text) => text.substring(2));
+
+    const requestedReviewersMap = new Map();
+
+    origRequestedReviewers.forEach((requestedReviewer) => {
+      requestedReviewersMap.set(requestedReviewer, '');
+    });
+
     const reviews = await github.paginate(
       github.rest.pulls.listReviews,
       {
@@ -62,6 +75,17 @@ module.exports = {
     );
 
     console.log('List of reviews on PR: ', reviews);
+
+    // Go through each list of reviewers chronologically and see if everyone
+    // in our requestedReviewersMap is "approved"
+    reviews.forEach((review) => {
+      // If there are teams, then we need to make another API call to check if that
+      // reviewer is in the team or not
+      // not sure if this works how it should:
+      // if (requestedReviewersMap.has(review.userLogin)) {
+      //   requestedReviewersMap.set(review.userLogin);
+      // }
+    });
 
     // const trackRequestedReviewsComment = `From Verify Approvals workflow
 
