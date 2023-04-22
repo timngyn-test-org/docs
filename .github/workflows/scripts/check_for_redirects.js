@@ -15,6 +15,5 @@ module.exports = {
     console.log('Deleted files: ', deletedFiles);
 
     return deletedFiles.length;
-  },
-  addRedirectsLabel: 
+  }
 };
