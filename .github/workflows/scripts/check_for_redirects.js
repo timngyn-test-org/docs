@@ -13,7 +13,8 @@ module.exports = {
           .filter((file) => file.status === 'removed')
           .filter(
             (file) =>
-              file.startsWith('src/fragments') || file.startsWith('src/pages')
+              file.filename.startsWith('src/fragments') ||
+              file.filename.startsWith('src/pages')
           )
     );
 
