@@ -2,8 +2,8 @@ name: Add redirects-needed label
 on:
   workflow_run:
     workflows: ['Redirects Workflow']
-    types:
-      - completed
+    types: [completed]
+    branches: [main, test-codeowners]
 jobs:
   addRedirectsNeededLabel:
     name: Add redirects-needed label
