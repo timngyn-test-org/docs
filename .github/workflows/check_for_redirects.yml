@@ -19,7 +19,7 @@ jobs:
           result-encoding: string
           script: |
             const { getDeletedFiles } = require('./.github/workflows/scripts/check_for_redirects.js');
-            return getDeletedFiles({github, context, core});
+            return getDeletedFiles({github, context});
       - name: Create artifact containing deleted file count
         id: create-artifact-name
         run: |

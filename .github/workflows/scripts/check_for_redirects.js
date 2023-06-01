@@ -22,5 +22,8 @@ module.exports = {
     console.log('Deleted files: ', deletedFiles);
 
     return deletedFiles.length;
+  },
+  getArtifact: async ({ github, context, fs }) => {
+    console.log(context);
   }
 };
