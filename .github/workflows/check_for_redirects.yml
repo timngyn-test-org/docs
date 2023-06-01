@@ -2,7 +2,7 @@ name: Redirects Workflow
 on:
   pull_request:
     branches: [main]
-    types: [opened, synchronize, labeled]
+    types: [opened, synchronize]
 env:
   DIFF_DIRECTORIES: 'src/pages src/fragments'
 jobs:
@@ -21,6 +21,14 @@ jobs:
           script: |
             const { getDeletedFiles } = require('./.github/workflows/scripts/check_for_redirects.js');
             return getDeletedFiles({github, context, core});
-      - name: Fail status check if there are deleted files
-        if: ${{ steps.set-deleted-files-count.outputs.result > 0 }}
-        run: exit 1
+      - name: Create artifact containing deleted file count
+        id: create-artifact-name
+        run: |
+          artifact_name="pr${{ github.event.pull_request.number }}"
+          echo "ARTIFACT_NAME=${artifact_name}" >> "$GITHUB_OUTPUT"
+          echo ${{ steps.set-deleted-files-count.outputs.result }} > "${artifact_name}.txt"
+      - name: Upload count of deleted files artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.create-artifact-name.outputs.ARTIFACT_NAME }}
+          path: '${{ steps.create-artifact-name.outputs.ARTIFACT_NAME }}.txt'
