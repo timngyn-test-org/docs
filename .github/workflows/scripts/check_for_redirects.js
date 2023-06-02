@@ -53,7 +53,7 @@ module.exports = {
     })[0];
 
 
-    const download = await github.actions.downloadArtifact({
+    const download = await github.rest.actions.downloadArtifact({
       owner: ownerLogin,
       repo: repoName,
       artifact_id: matchArtifact.id,
