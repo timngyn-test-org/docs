@@ -64,7 +64,27 @@ module.exports = {
     fs.writeFileSync(`${workspace}/${artifactName}.zip`, Buffer.from(download.data));
   },
   addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
-    var artifactContents = fs.readFileSync(`./${artifactName}.txt`);
-    console.log(artifactContents.toString());
+    const {
+      payload: {
+        repository: {
+          owner: { login: ownerLogin },
+          name: repoName
+        },
+        workflow_run: {
+          id: workflowRunId
+        }
+      }
+    } = context;
+
+    const artifactContents = fs.readFileSync(`./${artifactName}.txt`).toString();
+    console.log(artifactContents);
+
+    const [prNumber, numberOfDeletedFiles] = artifactContents.split('\n');
+
+    if (numberOfDeletedFiles > 0) {
+      github.rest.issues.addLabels({
+        owner: ownerLogin, repo: repoName, issue_number: prNumber, labels: ['redirects-needed'] 
+      })
+    }
   }
 };
