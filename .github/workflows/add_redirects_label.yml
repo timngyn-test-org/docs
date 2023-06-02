@@ -1,7 +1,8 @@
 name: Add redirects-needed label
 on:
   workflow_run:
-    workflows: ['Redirects Workflow']
+    workflows:
+      - Redirects Workflow
     types: [completed]
     branches: [main, test-codeowners]
 env:
