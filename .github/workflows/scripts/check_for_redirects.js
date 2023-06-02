@@ -65,6 +65,6 @@ module.exports = {
   },
   addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
     var artifactContents = fs.readFileSync(`./${artifactName}.txt`);
-    console.log(artifactContents);
+    console.log(artifactContents.toString());
   }
 };
