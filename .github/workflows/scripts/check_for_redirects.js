@@ -69,17 +69,16 @@ module.exports = {
         repository: {
           owner: { login: ownerLogin },
           name: repoName
-        },
-        workflow_run: {
-          id: workflowRunId
         }
       }
     } = context;
 
     const artifactContents = fs.readFileSync(`./${artifactName}.txt`).toString();
-    console.log(artifactContents);
 
     const [prNumber, numberOfDeletedFiles] = artifactContents.split('\n');
+
+    console.log("PR number that triggered workflow:", prNumber);
+    console.log("Number of deleted files: ", numberOfDeletedFiles);
 
     if (numberOfDeletedFiles > 0) {
       github.rest.issues.addLabels({
