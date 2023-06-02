@@ -23,7 +23,7 @@ module.exports = {
 
     return deletedFiles.length;
   },
-  getArtifact: async ({ github, context, fs, artifactName }) => {
+  getArtifact: async ({ github, context, fs, artifactName, workspace }) => {
     const {
       payload: {
         repository: {
@@ -61,7 +61,7 @@ module.exports = {
     });
 
 
-    fs.writeFileSync(`${github.workspace}/${artifactName}.zip`, Buffer.from(download.data));
+    fs.writeFileSync(`${workspace}/${artifactName}.zip`, Buffer.from(download.data));
   },
   addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
     var artifactContents = fs.readFileSync(`./${artifactName}.txt`);
