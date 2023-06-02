@@ -24,22 +24,26 @@ module.exports = {
     return deletedFiles.length;
   },
   getArtifact: async ({ github, context, fs, artifactName }) => {
-    console.log(context);
-    var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      run_id: github.event.workflow_run.id
-    });
-    var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-      return artifact.name == artifactName;
-    })[0];
-    var download = await github.actions.downloadArtifact({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      artifact_id: matchArtifact.id,
-      archive_format: 'zip'
-    });
-    fs.writeFileSync(`${github.workspace}/${artifactName}.zip`, Buffer.from(download.data));
+    console.log('context: ', context);
+
+    console.log('github: ', github);
+
+
+    // var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+    //   owner: context.repo.owner,
+    //   repo: context.repo.repo,
+    //   run_id: github.event.workflow_run.id
+    // });
+    // var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+    //   return artifact.name == artifactName;
+    // })[0];
+    // var download = await github.actions.downloadArtifact({
+    //   owner: context.repo.owner,
+    //   repo: context.repo.repo,
+    //   artifact_id: matchArtifact.id,
+    //   archive_format: 'zip'
+    // });
+    // fs.writeFileSync(`${github.workspace}/${artifactName}.zip`, Buffer.from(download.data));
   },
   addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
     var artifactContents = fs.readFileSync(`./${artifactName}.txt`);
