@@ -4,7 +4,7 @@ on:
     workflows:
       - Redirects Workflow
     types: [completed]
-    branches: [main, test-codeowners]
+    branches: [main]
 env:
   ARTIFACT_NAME: redirectsArtifact
 jobs:
