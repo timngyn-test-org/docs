@@ -4,6 +4,7 @@ on:
     types: [opened, synchronize]
 env:
   DIFF_DIRECTORIES: 'src/pages src/fragments'
+  ARTIFACT_NAME: 'redirectsArtifact'
 jobs:
   checkIfRedirectsAreNeeded:
     name: Check if redirects are needed
@@ -22,12 +23,13 @@ jobs:
             return getDeletedFiles({github, context});
       - name: Create artifact containing deleted file count
         id: create-artifact-name
+        env:
+          GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          artifact_name="pr${{ github.event.pull_request.number }}"
-          echo "ARTIFACT_NAME=${artifact_name}" >> "$GITHUB_OUTPUT"
-          echo ${{ steps.set-deleted-files-count.outputs.result }} > "${artifact_name}.txt"
+          echo ${{ env.GITHUB_PR_NUMBER }} >> "${{ env.ARTIFACT_NAME }}.txt"
+          echo ${{ steps.set-deleted-files-count.outputs.result }} >> "${{ env.ARTIFACT_NAME }}.txt"
       - name: Upload count of deleted files artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.create-artifact-name.outputs.ARTIFACT_NAME }}
-          path: '${{ steps.create-artifact-name.outputs.ARTIFACT_NAME }}.txt'
+          name: ${{ env.ARTIFACT_NAME }}
+          path: '${{ env.ARTIFACT_NAME }}.txt'
