@@ -25,7 +25,7 @@ module.exports = {
   },
   getArtifact: async ({ github, context, fs, artifactName }) => {
     console.log(context);
-    var artifacts = await github.actions.listWorkflowRunArtifacts({
+    var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
       repo: context.repo.repo,
       run_id: github.event.workflow_run.id
