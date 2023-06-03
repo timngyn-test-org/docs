@@ -30,6 +30,7 @@ jobs:
         env:
           WORKSPACE: ${{ github.workspace }}
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { addRedirectsNeededLabel } = require('./.github/workflows/scripts/check_for_redirects');
             const fs = require('fs');
