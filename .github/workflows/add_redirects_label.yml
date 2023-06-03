@@ -9,8 +9,8 @@ jobs:
   addRedirectsNeededLabel:
     name: Add redirects-needed label
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
+    permissions: 
+      pull-requests: write # used to add label
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

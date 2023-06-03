@@ -82,7 +82,10 @@ module.exports = {
 
     if (numberOfDeletedFiles > 0) {
       github.rest.issues.addLabels({
-        owner: ownerLogin, repo: repoName, issue_number: Number(prNumber), labels: ['redirects-needed']
+        owner: ownerLogin,
+        repo: repoName,
+        issue_number: Number(prNumber),
+        labels: ['redirects-needed']
       })
     }
   }
