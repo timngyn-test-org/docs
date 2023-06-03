@@ -30,16 +30,9 @@ module.exports = {
           owner: { login: ownerLogin },
           name: repoName
         },
-        workflow_run: {
-          id: workflowRunId
-        }
+        workflow_run: { id: workflowRunId }
       }
     } = context;
-
-    console.log('context: ', context);
-
-    console.log('github: ', github);
-
 
     const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
       owner: ownerLogin,
@@ -47,11 +40,9 @@ module.exports = {
       run_id: workflowRunId
     });
 
-
     const matchArtifact = artifacts.data.artifacts.filter((artifact) => {
       return artifact.name == artifactName;
     })[0];
-
 
     const download = await github.rest.actions.downloadArtifact({
       owner: ownerLogin,
@@ -60,8 +51,10 @@ module.exports = {
       archive_format: 'zip'
     });
 
-
-    fs.writeFileSync(`${workspace}/${artifactName}.zip`, Buffer.from(download.data));
+    fs.writeFileSync(
+      `${workspace}/${artifactName}.zip`,
+      Buffer.from(download.data)
+    );
   },
   addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
     const {
@@ -73,12 +66,14 @@ module.exports = {
       }
     } = context;
 
-    const artifactContents = fs.readFileSync(`./${artifactName}.txt`).toString();
+    const artifactContents = fs
+      .readFileSync(`./${artifactName}.txt`)
+      .toString();
 
     const [prNumber, numberOfDeletedFiles] = artifactContents.split('\n');
 
-    console.log("PR number that triggered workflow:", prNumber);
-    console.log("Number of deleted files: ", numberOfDeletedFiles);
+    console.log('PR number that triggered workflow:', prNumber);
+    console.log('Number of deleted files: ', numberOfDeletedFiles);
 
     if (numberOfDeletedFiles > 0) {
       github.rest.issues.addLabels({
@@ -86,7 +81,7 @@ module.exports = {
         repo: repoName,
         issue_number: Number(prNumber),
         labels: ['redirects-needed']
-      })
+      });
     }
   }
 };
