@@ -1,7 +1,5 @@
 name: Redirects Workflow
-on:
-  pull_request:
-    types: [opened, synchronize]
+on: pull_request
 env:
   DIFF_DIRECTORIES: 'src/pages src/fragments'
   ARTIFACT_NAME: 'redirectsArtifact'
@@ -22,7 +20,6 @@ jobs:
             const { getDeletedFiles } = require('./.github/workflows/scripts/check_for_redirects.js');
             return getDeletedFiles({github, context});
       - name: Create artifact containing the PR number and deleted file count
-        id: create-artifact-name
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |

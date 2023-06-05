@@ -39,7 +39,7 @@ module.exports = {
 
     const [prNumber, numberOfDeletedFiles] = artifactContents.split('\n');
 
-    console.log('PR number that triggered workflow:', prNumber);
+    console.log('PR number that triggered workflow: ', prNumber);
     console.log('Number of deleted files: ', numberOfDeletedFiles);
 
     if (Number(numberOfDeletedFiles) > 0) {
