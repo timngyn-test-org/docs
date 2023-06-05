@@ -19,7 +19,10 @@ module.exports = {
     );
 
     console.log('Deleted file count: ', deletedFiles.length);
-    console.log('Deleted files: ', deletedFiles);
+    console.log(
+      'Deleted files: ',
+      deletedFiles.map((file) => file.filename)
+    );
 
     return deletedFiles.length;
   },
