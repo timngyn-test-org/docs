@@ -23,39 +23,6 @@ module.exports = {
 
     return deletedFiles.length;
   },
-  getArtifact: async ({ github, context, fs, artifactName, workspace }) => {
-    const {
-      payload: {
-        repository: {
-          owner: { login: ownerLogin },
-          name: repoName
-        },
-        workflow_run: { id: workflowRunId }
-      }
-    } = context;
-
-    const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-      owner: ownerLogin,
-      repo: repoName,
-      run_id: workflowRunId
-    });
-
-    const matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-      return artifact.name == artifactName;
-    })[0];
-
-    const download = await github.rest.actions.downloadArtifact({
-      owner: ownerLogin,
-      repo: repoName,
-      artifact_id: matchArtifact.id,
-      archive_format: 'zip'
-    });
-
-    fs.writeFileSync(
-      `${workspace}/${artifactName}.zip`,
-      Buffer.from(download.data)
-    );
-  },
   addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
     const {
       payload: {
