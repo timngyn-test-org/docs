@@ -10,7 +10,7 @@ jobs:
     name: Check if redirects are needed
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository to get the workflow scripts
         uses: actions/checkout@v3
       - name: Get count of deleted files
         uses: actions/github-script@v6.4.0
@@ -28,7 +28,7 @@ jobs:
         run: |
           echo ${{ env.PR_NUMBER }} >> "${{ env.ARTIFACT_NAME }}.txt"
           echo ${{ steps.set-deleted-files-count.outputs.result }} >> "${{ env.ARTIFACT_NAME }}.txt"
-      - name: Upload count of deleted files artifact
+      - name: Upload the redirects file to artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT_NAME }}
