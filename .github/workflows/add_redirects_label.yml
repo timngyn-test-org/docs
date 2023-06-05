@@ -9,7 +9,7 @@ jobs:
   addRedirectsNeededLabel:
     name: Add redirects-needed label
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       pull-requests: write # used to add label
     steps:
       - name: Checkout repository
@@ -38,5 +38,4 @@ jobs:
             const fs = require('fs');
             const artifactName = process.env.ARTIFACT_NAME;
             const workspace = process.env.WORKSPACE
-            console.log('workspace ', workspace);
             addRedirectsNeededLabel({github, context, fs, artifactName, workspace});
