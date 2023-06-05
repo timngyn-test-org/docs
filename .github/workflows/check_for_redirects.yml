@@ -24,9 +24,9 @@ jobs:
       - name: Create artifact containing the PR number and deleted file count
         id: create-artifact-name
         env:
-          GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo ${{ env.GITHUB_PR_NUMBER }} >> "${{ env.ARTIFACT_NAME }}.txt"
+          echo ${{ env.PR_NUMBER }} >> "${{ env.ARTIFACT_NAME }}.txt"
           echo ${{ steps.set-deleted-files-count.outputs.result }} >> "${{ env.ARTIFACT_NAME }}.txt"
       - name: Upload count of deleted files artifact
         uses: actions/upload-artifact@v3
