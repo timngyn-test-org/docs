@@ -17,7 +17,7 @@ jobs:
           result-encoding: string
           script: |
             const { getDeletedFilesFromPR } = require('./.github/workflows/scripts/utilities.js');
-            return getDeletedFiles({github, context});
+            return getDeletedFilesFromPR({github, context});
       - name: Create artifact containing the PR number and deleted file count
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
