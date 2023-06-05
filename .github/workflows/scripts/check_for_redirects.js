@@ -1,32 +1,4 @@
 module.exports = {
-  getDeletedFiles: async ({ github, context }) => {
-    // File paths where we want to see if a file was deleted
-    const PATHS = ['src/fragments', 'src/pages'];
-
-    const {
-      issue: { number: issue_number },
-      repo: { owner, repo }
-    } = context;
-
-    const deletedFiles = await github.paginate(
-      'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
-      { owner, repo, pull_number: issue_number },
-      (response) =>
-        response.data
-          .filter((file) => file.status === 'removed')
-          .filter((file) =>
-            PATHS.some((path) => file.filename.startsWith(path))
-          )
-    );
-
-    console.log('Deleted file count: ', deletedFiles.length);
-    console.log(
-      'Deleted files: ',
-      deletedFiles.map((file) => file.filename)
-    );
-
-    return deletedFiles.length;
-  },
   addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
     const {
       payload: {

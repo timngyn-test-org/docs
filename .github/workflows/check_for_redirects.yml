@@ -16,7 +16,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
           script: |
-            const { getDeletedFiles } = require('./.github/workflows/scripts/check_for_redirects.js');
+            const { getDeletedFilesFromPR } = require('./.github/workflows/scripts/utilities.js');
             return getDeletedFiles({github, context});
       - name: Create artifact containing the PR number and deleted file count
         env:
