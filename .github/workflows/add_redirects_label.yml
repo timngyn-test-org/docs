@@ -20,7 +20,7 @@ jobs:
           WORKSPACE: ${{ github.workspace }}
         with:
           script: |
-            const { getArtifact } = require('./.github/workflows/scripts/utilities');
+            const { getArtifact } = require('./.github/workflows/scripts/utilities.js');
             const fs = require('fs');
             const artifactName = process.env.ARTIFACT_NAME;
             const workspace = process.env.WORKSPACE
@@ -34,7 +34,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { addRedirectsNeededLabel } = require('./.github/workflows/scripts/check_for_redirects');
+            const { addRedirectsNeededLabel } = require('./.github/workflows/scripts/check_for_redirects.js');
             const fs = require('fs');
             const artifactName = process.env.ARTIFACT_NAME;
             const workspace = process.env.WORKSPACE
