@@ -42,7 +42,7 @@ module.exports = {
     console.log('PR number that triggered workflow:', prNumber);
     console.log('Number of deleted files: ', numberOfDeletedFiles);
 
-    if (numberOfDeletedFiles > 0) {
+    if (Number(numberOfDeletedFiles) > 0) {
       github.rest.issues.addLabels({
         owner: ownerLogin,
         repo: repoName,

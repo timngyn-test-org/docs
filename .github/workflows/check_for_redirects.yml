@@ -10,7 +10,7 @@ jobs:
     name: Check if redirects are needed
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository to get the workflow scripts
         uses: actions/checkout@v3
       - name: Get count of deleted files
         uses: actions/github-script@v6.4.0
@@ -21,14 +21,14 @@ jobs:
           script: |
             const { getDeletedFiles } = require('./.github/workflows/scripts/check_for_redirects.js');
             return getDeletedFiles({github, context});
-      - name: Create artifact containing deleted file count
+      - name: Create artifact containing the PR number and deleted file count
         id: create-artifact-name
         env:
-          GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo ${{ env.GITHUB_PR_NUMBER }} >> "${{ env.ARTIFACT_NAME }}.txt"
+          echo ${{ env.PR_NUMBER }} >> "${{ env.ARTIFACT_NAME }}.txt"
           echo ${{ steps.set-deleted-files-count.outputs.result }} >> "${{ env.ARTIFACT_NAME }}.txt"
-      - name: Upload count of deleted files artifact
+      - name: Upload the redirects file to artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT_NAME }}
