@@ -22,8 +22,9 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          echo ${{ env.PR_NUMBER }} >> "${{ env.ARTIFACT_NAME }}.txt"
-          echo ${{ steps.set-deleted-files-count.outputs.result }} >> "${{ env.ARTIFACT_NAME }}.txt"
+          artifactName="${{ env.ARTIFACT_NAME }}.txt"
+          echo ${{ env.PR_NUMBER }} >> $artifactName
+          echo ${{ steps.set-deleted-files-count.outputs.result }} >> $artifactName
       - name: Upload the redirects file to artifacts
         uses: actions/upload-artifact@v3
         with:

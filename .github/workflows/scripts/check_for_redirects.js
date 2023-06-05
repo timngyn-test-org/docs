@@ -40,16 +40,19 @@ module.exports = {
       .readFileSync(`./${artifactName}.txt`)
       .toString();
 
-    const [prNumber, numberOfDeletedFiles] = artifactContents.split('\n');
+    const [prNumberStr, numOfDeletedFilesStr] = artifactContents.split('\n');
 
-    console.log('PR number that triggered workflow: ', prNumber);
-    console.log('Number of deleted files: ', numberOfDeletedFiles);
+    console.log('PR number that triggered workflow: ', prNumberStr);
+    console.log('Number of deleted files: ', numOfDeletedFilesStr);
 
-    if (Number(numberOfDeletedFiles) > 0) {
+    const prNumber = Number(prNumberStr);
+    const numOfDeletedFiles = Number(numOfDeletedFilesStr);
+
+    if (numOfDeletedFiles > 0) {
       github.rest.issues.addLabels({
         owner: ownerLogin,
         repo: repoName,
-        issue_number: Number(prNumber),
+        issue_number: prNumber,
         labels: ['redirects-needed']
       });
     }
