@@ -1,5 +1,7 @@
 module.exports = {
   getDeletedFiles: async ({ github, context }) => {
+    const PATHS = ['src/fragments', 'src/pages'];
+
     const {
       issue: { number: issue_number },
       repo: { owner, repo }
@@ -11,10 +13,8 @@ module.exports = {
       (response) =>
         response.data
           .filter((file) => file.status === 'removed')
-          .filter(
-            (file) =>
-              file.filename.startsWith('src/fragments') ||
-              file.filename.startsWith('src/pages')
+          .filter((file) =>
+            PATHS.some((path) => file.filename.startsWith(path))
           )
     );
 

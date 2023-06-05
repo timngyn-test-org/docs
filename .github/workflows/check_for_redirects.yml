@@ -1,7 +1,6 @@
 name: Redirects Workflow
 on: pull_request
 env:
-  DIFF_DIRECTORIES: 'src/pages src/fragments'
   ARTIFACT_NAME: 'redirectsArtifact'
 jobs:
   checkIfRedirectsAreNeeded:
