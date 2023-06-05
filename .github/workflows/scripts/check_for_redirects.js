@@ -1,5 +1,6 @@
 module.exports = {
   getDeletedFiles: async ({ github, context }) => {
+    // File paths where we want to see if a file was deleted
     const PATHS = ['src/fragments', 'src/pages'];
 
     const {
