@@ -27,25 +27,25 @@ module.exports = {
     console.log('listRequestedReviewers teams: ', teams);
 
     const teamsArr = teams.map((e) => `@${orgLogin}/${e.slug}`);
-    const teamsText = teamsArr.join('\n- ');
 
     const usersArr = users.map((e) => `@${e.login}`);
-    const usersText = usersArr.join('\n- ');
 
-    const trackRequestedReviewsComment = `From Verify Approvals workflow
+    return [...teamsArr, ...usersArr].join(',');
 
-Still need approvals from:`;
+    //     const trackRequestedReviewsComment = `From Verify Approvals workflow
 
-    const body = `${trackRequestedReviewsComment}
-    
-- ${teamsText}
-- ${usersText}`;
+    // Still need approvals from:`;
 
-    github.rest.issues.createComment({
-      owner: ownerLogin,
-      repo: name,
-      issue_number: number,
-      body: body
-    });
+    //     const body = `${trackRequestedReviewsComment}
+
+    // - ${teamsText}
+    // - ${usersText}`;
+
+    //     github.rest.issues.createComment({
+    //       owner: ownerLogin,
+    //       repo: name,
+    //       issue_number: number,
+    //       body: body
+    //     });
   }
 };
