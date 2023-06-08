@@ -37,7 +37,7 @@ module.exports = {
     ).filter((artifact) => {
       const [_, prNumber] = artifact.name.split('_');
 
-      return prNumber === contextPrNumber;
+      return prNumber == contextPrNumber;
     });
 
     console.log(artifacts);
