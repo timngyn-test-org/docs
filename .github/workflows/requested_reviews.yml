@@ -28,7 +28,9 @@ jobs:
           echo ${{ env.PR_NUMBER }} >> $artifactName
           echo ${{ steps.set-requested-reviewers.outputs.result }} >> $artifactName
       - name: Upload the requested reviewers file to artifacts
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.ARTIFACT_NAME }}
+          name: '${{ env.ARTIFACT_NAME }}_${{ env.PR_NUMBER }}'
           path: '${{ env.ARTIFACT_NAME }}.txt'
