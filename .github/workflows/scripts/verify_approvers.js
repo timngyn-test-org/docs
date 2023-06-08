@@ -6,7 +6,7 @@ module.exports = {
 
     const {
       payload: {
-        pull_request: { number },
+        pull_request: { number: contextPrNumber },
         repository: {
           owner: { login: ownerLogin },
           name
@@ -27,6 +27,20 @@ module.exports = {
       'context.payload.pull_request.requested_teams',
       context.payload.pull_request.requested_teams
     );
+
+    // Get all repo artifacts
+    const artifacts = await github
+      .paginate(github.rest.actions.listArtifactsForRepo, {
+        owner: ownerLogin,
+        repo: name
+      })
+      .filter((artifact) => {
+        const [_, prNumber] = artifact.name.split('_');
+
+        return prNumber === contextPrNumber;
+      });
+
+    console.log(artifacts);
 
     /*
     // Try to find the comment by the `github-actions[bot]` so we can
