@@ -29,13 +29,16 @@ module.exports = {
     );
 
     // Get all repo artifacts
-    const artifacts = await github.paginate(
-      github.rest.actions.listArtifactsForRepo,
-      {
+    const artifacts = (
+      await github.paginate(github.rest.actions.listArtifactsForRepo, {
         owner: ownerLogin,
         repo: name
-      }
-    );
+      })
+    ).filter((artifact) => {
+      const [_, prNumber] = artifact.name.split('_');
+
+      return prNumber === contextPrNumber;
+    });
 
     console.log(artifacts);
 
