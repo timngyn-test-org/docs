@@ -2,7 +2,7 @@ module.exports = {
   verifyApprovers: async ({ github, context }) => {
     // Listens for review submissions to update a comment on PR to keep track of who has actually approved
     // against who was originally requested
-    // console.log(context);
+    console.log(context);
 
     const {
       payload: {
@@ -28,6 +28,7 @@ module.exports = {
       context.payload.pull_request.requested_teams
     );
 
+    /*
     // Try to find the comment by the `github-actions[bot]` so we can
     // keep track of who the original list of requested reviewers were.
     // Need to do this because Github API only shows who is currently requested.
@@ -107,6 +108,6 @@ module.exports = {
     //   repo: name,
     //   issue_number: number,
     //   body: 'test comment from workflow'
-    // });
+    // }); */
   }
 };
