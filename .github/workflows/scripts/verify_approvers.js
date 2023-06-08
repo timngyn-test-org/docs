@@ -34,7 +34,7 @@ module.exports = {
         owner: ownerLogin,
         repo: name
       })
-      .filter((artifact) => {
+      .data.filter((artifact) => {
         const [_, prNumber] = artifact.name.split('_');
 
         return prNumber === contextPrNumber;
