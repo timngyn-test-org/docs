@@ -13,21 +13,31 @@ module.exports = {
       .readFileSync(`./${artifactName}.txt`)
       .toString();
 
-    const [prNumberStr, numOfDeletedFilesStr] = artifactContents.split('\n');
+    const [prNumberStr, numOfDeletedFilesStr] = artifactContents
+      .split('\n')
+      .map((str) => str.trim());
 
     console.log('PR number that triggered workflow: ', prNumberStr);
     console.log('Number of deleted files: ', numOfDeletedFilesStr);
 
-    const prNumber = Number(prNumberStr);
-    const numOfDeletedFiles = Number(numOfDeletedFilesStr);
+    // Regex to check if string is a number
+    const validateNumber = /^[1-9]\d*$/;
 
-    if (numOfDeletedFiles > 0) {
-      github.rest.issues.addLabels({
-        owner: ownerLogin,
-        repo: repoName,
-        issue_number: prNumber,
-        labels: ['redirects-needed']
-      });
+    if (
+      validateNumber.test(prNumberStr) &&
+      validateNumber.test(prNumnumOfDeletedFilesStrberStr)
+    ) {
+      const prNumber = Number(prNumberStr);
+      const numOfDeletedFiles = Number(numOfDeletedFilesStr);
+
+      if (numOfDeletedFiles > 0) {
+        github.rest.issues.addLabels({
+          owner: ownerLogin,
+          repo: repoName,
+          issue_number: prNumber,
+          labels: ['redirects-needed']
+        });
+      }
     }
   }
 };
