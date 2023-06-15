@@ -21,11 +21,11 @@ module.exports = {
     console.log('Number of deleted files: ', numOfDeletedFilesStr);
 
     // Regex to check if string is a number
-    const validateNumber = /^[1-9]\d*$/;
+    const validateNumber = /^[0-9]\d*$/;
 
     if (
-      validateNumber.test(prNumberStr) &&
-      validateNumber.test(prNumnumOfDeletedFilesStrberStr)
+      /^[1-9]\d*$/.test(prNumberStr) &&
+      /^(0|[1-9]\d*)$/.test(numOfDeletedFilesStr)
     ) {
       const prNumber = Number(prNumberStr);
       const numOfDeletedFiles = Number(numOfDeletedFilesStr);
