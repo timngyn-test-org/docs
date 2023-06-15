@@ -20,9 +20,6 @@ module.exports = {
     console.log('PR number that triggered workflow:', prNumberStr);
     console.log('Number of deleted files:', numOfDeletedFilesStr);
 
-    // Regex to check if string is a number
-    const validateNumber = /^[0-9]\d*$/;
-
     if (
       /^[1-9]\d*$/.test(prNumberStr) &&
       /^(0|[1-9]\d*)$/.test(numOfDeletedFilesStr)
