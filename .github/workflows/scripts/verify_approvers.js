@@ -71,7 +71,7 @@ module.exports = {
       pr_number: prNumber
     };
 
-    const result = await github.graphql(query, variables);
+    const result = await github.graphql(gqlQuery, variables);
 
     console.log(result);
   }
