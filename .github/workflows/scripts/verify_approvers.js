@@ -61,15 +61,6 @@ module.exports = {
         pullRequest(number: $pr_number) {
           reviewDecision
           state
-          reviews(first: 100) {
-            nodes {
-              state
-              submittedAt
-              author {
-                login
-              }
-            }
-          }
         }
       }
     }`;
