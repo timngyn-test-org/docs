@@ -1,127 +1,87 @@
 module.exports = {
-  verifyApprovers: async ({ github, context }) => {
-    // Listens for review submissions to update a comment on PR to keep track of who has actually approved
-    // against who was originally requested
-    console.log(context);
-
+  verifyApprovers: async ({ github, context, fs, artifactName }) => {
     const {
       payload: {
-        pull_request: { number: contextPrNumber },
+        pull_request: { number: prNumber },
         repository: {
           owner: { login: ownerLogin },
-          name
-        },
-        review: {
-          state,
-          user: { login }
+          name: repoName
         }
       }
     } = context;
 
-    console.log('context.payload.review.user', context.payload.review.user);
-    console.log(
-      'context.payload.pull_request.requested_reviewers',
-      context.payload.pull_request.requested_reviewers
-    );
-    console.log(
-      'context.payload.pull_request.requested_teams',
-      context.payload.pull_request.requested_teams
-    );
+    // use GH API to query who has approved
+    // Check if this list matches all the names we've found in the artifacts?!
+    // If all the approvers have approved then this script can add a "Ready to merge" label!!?
+    // I would have to keep reading all the files each time someone approves...?
+    // Is there a better way to do this...?
 
-    // Get all repo artifacts
-    const artifacts = (
-      await github.paginate(github.rest.actions.listArtifactsForRepo, {
-        owner: ownerLogin,
-        repo: name
-      })
-    ).filter((artifact) => {
-      const [_, prNumber] = artifact.name.split('_');
+    // in requested reviewers workflow:
+    // what if I have another workflow that runs on the completion of requested reviewers?
+    // requested reviewers would create a file that has the current list of requested reviewers
+    // then when it's finished it calls this new workflow which contains the latest list of
+    // requested reviewers? (Don't think this would work because each workflow_run is a new workflow)
+    // I would need to keep track of which one is the most "recent" somehow... would having a timestamp
+    // in the file name work? or maybe just a number to indicate its revision?
 
-      return prNumber == contextPrNumber;
-    });
+    // should "Requested reviewers" keep building on a file containing all the requested reivewers?
+    // it would have the PR number in the name and a revision number at the very end so that we know which is the most up to date
+    // basically treating artifacts like a database... is that the right thing to do?
 
-    console.log(artifacts);
+    // reframing question based off of: https://github.com/Automattic/action-required-review
+    // what if we don't care who was requested reviewer
+    // just look at who approved?
+    // if they submit a review check to see if they are supposed to be reviewing by looking at CODEOWNERS?
+    // each review submission will recheck all the people who have submitted a review to see
+    // if they belong to the correct paths from CODEOWNERS?
+    //
 
-    /*
-    // Try to find the comment by the `github-actions[bot]` so we can
-    // keep track of who the original list of requested reviewers were.
-    // Need to do this because Github API only shows who is currently requested.
-    // When a user submits their review (comment, approve, request changes), they are removed
-    // from the list of requested reviewers.
-    const prComments = await github.paginate(
-      github.rest.issues.listComments,
-      { owner: ownerLogin, repo: name, issue_number: number },
-      (response) =>
-        response.data.filter(
-          (comment) =>
-            comment.user.login === 'github-actions[bot]' &&
-            comment.body.startsWith('From Verify Approvals workflow')
-        )
-    );
+    // if someone just submitted a review, was it approve, comment, or needs changes?
+    // if it's approve, are they the right person from CODEOWNERS?
+    // would have to parse the CODEOWNERS file
+    // Find the file path and then check if they are a codeowner?
+    // check only on approved reviews
 
-    console.log('PR comments from the github bot: ', prComments);
+    // getting list of reviews, we can filter by "approved"
+    // if someone approved and their review is DISMISSED then github will overwrite their previous approve!
+    // don't need to care about who was originally requested because we can just check if the approver is the
+    // correct one or not
 
-    const latestBotComment = prComments[prComments.length - 1].body;
+    // next steps: fetching the codeowners file -> reading it ->
+    // next steps v2: see if I can try out their graphql API to see reviewDecision to figure out CODEOWNERS of a PR
+    // one other thing to do is just save the list of reviewers that was created by the CODEOWNERS file
 
-    const origRequestedReviewers = latestBotComment.str
-      .split('\n')
-      .filter((text) => text.startsWith('-'))
-      .map((text) => text.substring(2));
+    // steps to implement
+    // on every review submitted:
+    // 1. make GQL request to see reviewDecision
+    //
 
-    const requestedReviewersMap = new Map();
+    const gqlQuery = `query ($repo_name: String!, $repo_owner: String!, $pr_number: Int!) {
+      repository(name: $repo_name, owner: $repo_owner) {
+        pullRequest(number: $pr_number) {
+          reviewDecision
+          state
+          reviews(first: 100) {
+            nodes {
+              state
+              submittedAt
+              author {
+                login
+              }
+            }
+          }
+        }
+      }
+    }`;
 
-    origRequestedReviewers.forEach((requestedReviewer) => {
-      requestedReviewersMap.set(requestedReviewer, '');
-    });
+    const variables = {
+      repo_name: repoName,
+      repo_owner: ownerLogin,
+      pr_number: prNumber
+    };
 
-    const reviews = await github.paginate(
-      github.rest.pulls.listReviews,
-      {
-        owner: ownerLogin,
-        repo: name,
-        pull_number: number
-      },
-      (response) =>
-        response.data.map((review) => ({
-          userLogin: review.user.login,
-          state: review.state,
-          submitted_at: review.submitted_at
-        }))
-    );
+    const result = await github.graphql(query, variables);
 
-    console.log('List of reviews on PR: ', reviews);
-
-    // Go through each list of reviewers chronologically and see if everyone
-    // in our requestedReviewersMap is "approved"
-    reviews.forEach((review) => {
-      // If there are teams, then we need to make another API call to check if that
-      // reviewer is in the team or not
-      //
-      // not sure if this works how it should, but ideally we just keep setting
-      // the "review state" to what is found in the list of reviews so that when we're
-      // done iterating through the array we can have the current state of reviews:
-      // if (requestedReviewersMap.has(review.userLogin)) {
-      //   requestedReviewersMap.set(review.userLogin, review.state);
-      // }
-    });
-
-    // After we have went through the list of reviews
-    // go through the object to see if everything is approved
-    // If everyone is all approved then we can merge the PR
-    // Otherwise we don't merge it.
-    // Should we add a comment to let people know that they still need to approve?
-
-    // const trackRequestedReviewsComment = `From Verify Approvals workflow
-
-    // Still need approvals from:
-    // -
-    // `;
-
-    // github.rest.issues.createComment({
-    //   owner: ownerLogin,
-    //   repo: name,
-    //   issue_number: number,
-    //   body: 'test comment from workflow'
-    // }); */
+    console.log(result);
   }
 };

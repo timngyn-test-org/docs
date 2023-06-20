@@ -2,6 +2,8 @@ name: Verify Approvers
 on:
   pull_request_review:
     types: [submitted]
+env:
+  ARTIFACT_NAME: 'requestedReviewers'
 jobs:
   verifyApproval:
     name: Verify approvals
@@ -9,10 +11,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Check if approver is from requested reviewers
+      - name: Verify approvers
         uses: actions/github-script@v6.4.0
+        env:
+          WORKSPACE: ${{ github.workspace }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { verifyApprovers } = require('./.github/workflows/scripts/verify_approvers.js');
-            verifyApprovers({github, context});
+            const fs = require('fs');
+            const artifactName = process.env.ARTIFACT_NAME;
+            verifyApprovers({github, context, fs, artifactName});
