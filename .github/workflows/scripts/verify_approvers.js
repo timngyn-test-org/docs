@@ -101,15 +101,16 @@ module.exports = {
     // }
 
     // Get the artifact from the "Requested reviews workflow"
-    const artifacts = await github.paginate(
-      github.rest.actions.listArtifactsForRepo,
-      {
-        owner: ownerLogin,
-        repo: repoName
-      },
-      (response) =>
-        response.data.find((artifact) => artifact.name.startsWith(prNumber))
-    );
+    const artifacts = (
+      await github.paginate(
+        github.rest.actions.listArtifactsForRepo,
+        {
+          owner: ownerLogin,
+          repo: repoName
+        },
+        (response) => response.data
+      )
+    ).find((artifact) => artifact.name.startsWith(prNumber));
 
     console.log(artifacts);
   }
