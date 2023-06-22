@@ -3,7 +3,7 @@ on:
   pull_request_review:
     types: [submitted]
 env:
-  ARTIFACT_NAME: 'requestedReviewers'
+  ARTIFACT_NAME: 'requestedReviewersArtifact'
 jobs:
   verifyApproval:
     name: Verify approvals
@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Verify approvers
+      - name: Get requested reviewers artifact
         uses: actions/github-script@v6.4.0
         env:
           WORKSPACE: ${{ github.workspace }}
@@ -19,8 +19,21 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { verifyApprovers } = require('./.github/workflows/scripts/verify_approvers.js');
+            const { getRequstedReviewers } = require('./.github/workflows/scripts/verify_approvers.js');
             const fs = require('fs');
             const artifactName = process.env.ARTIFACT_NAME;
             const prNumber = process.env.PR_NUMBER;
-            verifyApprovers({github, context, artifactName, prNumber});
+            const workspace = process.env.WORKSPACE
+            getRequstedReviewers({github, context, fs, workspace, artifactName, prNumber});
+      - name: Unzip artifact
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: unzip '${{ env.PR_NUMBER }}_${{ env.ARTIFACT_NAME }}.zip'
+      - name: Verify approvers
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410
+        env:
+          WORKSPACE: ${{ github.workspace }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const {  }

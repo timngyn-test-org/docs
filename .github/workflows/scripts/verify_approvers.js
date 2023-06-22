@@ -1,5 +1,12 @@
 module.exports = {
-  verifyApprovers: async ({ github, context, artifactName, prNumber }) => {
+  getRequstedReviewers: async ({
+    github,
+    context,
+    fs,
+    workspace,
+    artifactName,
+    prNumber
+  }) => {
     const {
       payload: {
         repository: {
@@ -100,8 +107,8 @@ module.exports = {
     //   // Wha
     // }
 
-    // Get the artifact from the "Requested reviews workflow"
-    const artifacts = (
+    // Get the artifact from the "Requested Reviewers" workflow for the respective PR
+    const artifact = (
       await github.paginate(
         github.rest.actions.listArtifactsForRepo,
         {
@@ -113,5 +120,30 @@ module.exports = {
     ).find((artifact) => artifact.name.startsWith(prNumber));
 
     console.log(artifacts);
+
+    const download = await github.rest.actions.downloadArtifact({
+      owner: ownerLogin,
+      repo: repoName,
+      artifact_id: artifact.id,
+      archive_format: 'zip'
+    });
+
+    fs.writeFileSync(
+      `${workspace}/${artifactName}.zip`,
+      Buffer.from(download.data)
+    );
+  },
+  verifyApprovers: async ({ github, context, fs, artifactName }) => {
+    const artifactContents = fs
+      .readFileSync(`./${artifactName}.txt`)
+      .toString();
+
+    const [teams, users] = artifactContents
+      .split('\n')
+      .map((str) => str.trim());
+
+    console.log('teams:', teams);
+
+    console.log('users', users);
   }
 };

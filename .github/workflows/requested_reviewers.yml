@@ -22,11 +22,8 @@ jobs:
             const { getRequestedReviewers } = require('./.github/workflows/scripts/requested_reviews.js');
             return getRequestedReviewers({github, context});
       - name: Create artifact containing PR number and list of requested reviewers
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           artifactName="${{ env.ARTIFACT_NAME }}.txt"
-          echo ${{ env.PR_NUMBER }} >> $artifactName
           echo $'${{ steps.requested-reviewers.outputs.result }}' >> $artifactName
       - name: Upload the file to artifacts
         env:
