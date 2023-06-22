@@ -1,5 +1,5 @@
 module.exports = {
-  verifyApprovers: async ({ github, context, fs, artifactName }) => {
+  verifyApprovers: async ({ github, context, artifactName, prNumber }) => {
     const {
       payload: {
         pull_request: { number: prNumber },
@@ -72,33 +72,46 @@ module.exports = {
 
     // Use Github's GraphQL api to get the `reviewDecision` property: https://docs.github.com/en/graphql/reference/objects#pullrequest
     // It represents the current status of the pull request with respect to code review
-    const gqlQuery = `query ($repo_name: String!, $repo_owner: String!, $pr_number: Int!) {
-      repository(name: $repo_name, owner: $repo_owner) {
-        pullRequest(number: $pr_number) {
-          reviewDecision
-          state
-        }
-      }
-    }`;
+    // const gqlQuery = `query ($repo_name: String!, $repo_owner: String!, $pr_number: Int!) {
+    //   repository(name: $repo_name, owner: $repo_owner) {
+    //     pullRequest(number: $pr_number) {
+    //       reviewDecision
+    //       state
+    //     }
+    //   }
+    // }`;
 
-    const variables = {
-      repo_name: repoName,
-      repo_owner: ownerLogin,
-      pr_number: prNumber
-    };
+    // const variables = {
+    //   repo_name: repoName,
+    //   repo_owner: ownerLogin,
+    //   pr_number: prNumber
+    // };
 
-    const {
-      repository: {
-        pullRequest: { reviewDecision }
-      }
-    } = await github.graphql(gqlQuery, variables);
+    // const {
+    //   repository: {
+    //     pullRequest: { reviewDecision }
+    //   }
+    // } = await github.graphql(gqlQuery, variables);
 
-    // console.log(result);
-    console.log(reviewDecision);
+    // // console.log(result);
+    // console.log(reviewDecision);
 
-    if (reviewDecision === 'APPROVED') {
-      // Does it make sense to use this property?
-      // Wha
-    }
+    // if (reviewDecision === 'APPROVED') {
+    //   // Does it make sense to use this property?
+    //   // Wha
+    // }
+
+    // Get the artifact from the "Requested reviews workflow"
+    const artifacts = await github.paginate(
+      github.rest.actions.listArtifactsForRepo,
+      {
+        owner: ownerLogin,
+        repo: repoName
+      },
+      (response) =>
+        response.data.find((artifact) => artifact.name.startsWith(prNumber))
+    );
+
+    console.log(artifacts);
   }
 };
