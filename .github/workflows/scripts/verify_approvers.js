@@ -136,6 +136,12 @@ module.exports = {
     }
   },
   verifyApprovers: async ({ github, context, fs, artifactName }) => {
+    const {
+      payload: {
+        pull_request: { prNumber }
+      }
+    } = context;
+
     const artifactContents = fs
       .readFileSync(`./${artifactName}.txt`)
       .toString();
