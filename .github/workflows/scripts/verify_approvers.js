@@ -54,8 +54,20 @@ module.exports = {
     // steps to implement
     // on every review submitted:
     // 1. make GQL request to see reviewDecision
+    // 2. if reviewDecision === 'APPROVED', then get the list of reviewers
+
+    // we actually want to get all the requested reviewers of the CODEOWNERS and then make sure all each group submits at least 1 approval
+    // when a PR opens, need to save all those who have been requested?
+    // or when we get an approval, we just check if those people are the correct ones? but correct in what way
+    // of the approvals do we have all the CODEOWNERS?
+
+    // test cases
+    // person edits 1 file
+    // at least two codeowners
     //
 
+    // Use Github's GraphQL api to get the `reviewDecision` property: https://docs.github.com/en/graphql/reference/objects#pullrequest
+    // It represents the current status of the pull request with respect to code review
     const gqlQuery = `query ($repo_name: String!, $repo_owner: String!, $pr_number: Int!) {
       repository(name: $repo_name, owner: $repo_owner) {
         pullRequest(number: $pr_number) {
@@ -71,8 +83,18 @@ module.exports = {
       pr_number: prNumber
     };
 
-    const result = await github.graphql(gqlQuery, variables);
+    const {
+      repository: {
+        pullRequest: { reviewDecision }
+      }
+    } = await github.graphql(gqlQuery, variables);
 
-    console.log(result);
+    // console.log(result);
+    console.log(reviewDecision);
+
+    if (reviewDecision === 'APPROVED') {
+      // Does it make sense to use this property?
+      // Wha
+    }
   }
 };
