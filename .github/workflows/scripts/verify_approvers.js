@@ -130,7 +130,7 @@ module.exports = {
       });
 
       fs.writeFileSync(
-        `${workspace}/${artifactName}.zip`,
+        `${workspace}/${prNumber}_${artifactName}.zip`,
         Buffer.from(download.data)
       );
     }
