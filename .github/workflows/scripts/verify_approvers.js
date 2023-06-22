@@ -119,19 +119,21 @@ module.exports = {
       )
     ).find((artifact) => artifact.name.startsWith(prNumber));
 
-    console.log(artifacts);
+    console.log(artifact);
 
-    const download = await github.rest.actions.downloadArtifact({
-      owner: ownerLogin,
-      repo: repoName,
-      artifact_id: artifact.id,
-      archive_format: 'zip'
-    });
+    if (artifact && artifact.id) {
+      const download = await github.rest.actions.downloadArtifact({
+        owner: ownerLogin,
+        repo: repoName,
+        artifact_id: artifact.id,
+        archive_format: 'zip'
+      });
 
-    fs.writeFileSync(
-      `${workspace}/${artifactName}.zip`,
-      Buffer.from(download.data)
-    );
+      fs.writeFileSync(
+        `${workspace}/${artifactName}.zip`,
+        Buffer.from(download.data)
+      );
+    }
   },
   verifyApprovers: async ({ github, context, fs, artifactName }) => {
     const artifactContents = fs
