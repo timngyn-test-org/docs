@@ -66,6 +66,10 @@ module.exports = {
     // at least two codeowners
     //
 
+    // on pr create: save the list of requested reviewers
+    // on each approval -> we fetch all approvers that have already approved
+    // when we see that every requested reviewer has a approver then it's okay to merge
+
     // Use Github's GraphQL api to get the `reviewDecision` property: https://docs.github.com/en/graphql/reference/objects#pullrequest
     // It represents the current status of the pull request with respect to code review
     const gqlQuery = `query ($repo_name: String!, $repo_owner: String!, $pr_number: Int!) {
