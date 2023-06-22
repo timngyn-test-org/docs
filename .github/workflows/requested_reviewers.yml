@@ -27,7 +27,7 @@ jobs:
         run: |
           artifactName="${{ env.ARTIFACT_NAME }}.txt"
           echo ${{ env.PR_NUMBER }} >> $artifactName
-          echo ${{ steps.requested-reviewers.outputs.result }} >> $artifactName
+          echo $'${{ steps.requested-reviewers.outputs.result }}' >> $artifactName
       - name: Upload the file to artifacts
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
