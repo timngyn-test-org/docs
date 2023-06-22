@@ -61,12 +61,12 @@
 /src/pages/**/geo @timngyn-test-org/team-1
 
 #CLI
-/src/**/cli @timngyn-test-org/team-2
-/src/**/cli-legacy @timngyn-test-org/team-2
-/src/fragments/cli-install-block.mdx @timngyn-test-org/team-2
-/src/fragments/lib-v1/project-setup/native_common/prereq/cliInstall.mdx @timngyn-test-org/team-2
-/src/fragments/pull-cli-studio.mdx @timngyn-test-org/team-2
-/src/pages/console/adminui/extend-cli.mdx @timngyn-test-org/team-2
+/src/**/cli @timngyn-test-org/team-2 @timngyn-acc4
+/src/**/cli-legacy @timngyn-test-org/team-2 @timngyn-acc4
+/src/fragments/cli-install-block.mdx @timngyn-test-org/team-2 @timngyn-acc4
+/src/fragments/lib-v1/project-setup/native_common/prereq/cliInstall.mdx @timngyn-test-org/team-2 @timngyn-acc4
+/src/fragments/pull-cli-studio.mdx @timngyn-test-org/team-2 @timngyn-acc4
+/src/pages/console/adminui/extend-cli.mdx @timngyn-test-org/team-2 @timngyn-acc4
 
 #Android
 /src/fragments/**/**/android @timngyn-test-org/team-2
