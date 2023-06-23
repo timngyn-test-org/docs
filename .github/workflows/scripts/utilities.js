@@ -11,13 +11,15 @@ module.exports = {
       repo: { owner, repo }
     } = context;
 
-    const deletedFiles = (
-      await github.paginate(
-        'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
-        { owner, repo, pull_number: issue_number },
-        (response) => response.data
-      )
-    )
+    const deletedFiles = await github.paginate(
+      'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
+      { owner, repo, pull_number: issue_number },
+      (response) => response.data
+    );
+
+    console.log(deletedFiles);
+
+    const test = deletedFiles
       .filter((file) => file.status === 'removed')
       .filter((file) => paths.some((path) => file.filename.startsWith(path)));
 

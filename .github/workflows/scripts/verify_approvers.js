@@ -153,5 +153,8 @@ module.exports = {
     console.log('teams:', teams);
 
     console.log('users', users);
+
+    // TODO: make a request to get all reviews and filter by only approves
+    // then go through each requested reviewer and see if all the approves fit?
   }
 };
