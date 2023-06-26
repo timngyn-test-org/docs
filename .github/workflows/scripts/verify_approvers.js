@@ -179,6 +179,8 @@ module.exports = {
       .filter((review) => review.state === 'APPROVED')
       .map((review) => review.user.login);
 
+    console.log('Current approvers:', approvers);
+
     // Check if all the requested user reviewers exist in the list of approvers
     const approversSet = new Set(approvers);
     const correctUserReviews = requestedUsersArr.every((requestedUser) =>
@@ -205,7 +207,9 @@ module.exports = {
     // Check if all the requested teams have an approver
     // want to go through each team and see if there is a user from the list of approvers that satifies the team
     for (const requestedTeam of requestedTeamsArr) {
+      console.log('current requestedTeam:', requestedTeam);
       for (const approver of approvers) {
+        console.log('current approver:', approver);
         const result = await isTeamMember(requestedTeam, approver);
         if (result) {
           console.log(`${approver} is part of the team ${requestedTeam}`);
