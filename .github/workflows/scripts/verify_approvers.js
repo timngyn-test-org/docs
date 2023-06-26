@@ -196,6 +196,8 @@ module.exports = {
     );
 
     const isTeamMember = async (team_slug, username) => {
+      // Noooo, this request requires a PAT for more elevated scope: `read:org`
+      // this scope is not in the GITHUB_TOKEN unfortunately
       const response = await github.rest.teams.getMembershipForUserInOrg({
         // org: 'aws-amplify',
         org: 'timngyn-test-org',
