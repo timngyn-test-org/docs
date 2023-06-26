@@ -195,7 +195,7 @@ module.exports = {
       approversSet.has(requestedUser)
     );
 
-    const isTeamMember = async ({ team_slug, username }) => {
+    const isTeamMember = async (team_slug, username) => {
       const response = await github.rest.teams.getMembershipForUserInOrg({
         org: 'aws-amplify',
         team_slug,
