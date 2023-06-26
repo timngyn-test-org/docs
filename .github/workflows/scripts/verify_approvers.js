@@ -138,7 +138,11 @@ module.exports = {
   verifyApprovers: async ({ github, context, fs, artifactName }) => {
     const {
       payload: {
-        pull_request: { prNumber }
+        pull_request: { prNumber },
+        repository: {
+          owner: { login: ownerLogin },
+          name: repoName
+        }
       }
     } = context;
 
