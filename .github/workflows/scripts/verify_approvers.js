@@ -197,7 +197,8 @@ module.exports = {
 
     const isTeamMember = async (team_slug, username) => {
       const response = await github.rest.teams.getMembershipForUserInOrg({
-        org: 'aws-amplify',
+        // org: 'aws-amplify',
+        org: 'timngyn-test-org',
         team_slug,
         username
       });
