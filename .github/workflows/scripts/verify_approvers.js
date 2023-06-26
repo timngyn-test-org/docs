@@ -171,24 +171,26 @@ module.exports = {
     // Get all current approvers
     // This doesn't get the latest approver??
     // does that mean this will only grab the previous approvers
-    const approvers = (
-      await github.paginate(
-        github.rest.actions.listReviews,
-        {
-          owner: ownerLogin,
-          repo: repoName,
-          pull_number: prNumber
-        },
-        (response) => response.data
-      )
-    )
+    const approvers = await github.paginate(
+      github.rest.actions.listReviews,
+      {
+        owner: ownerLogin,
+        repo: repoName,
+        pull_number: prNumber
+      },
+      (response) => response.data
+    );
+
+    console.log(approvers);
+
+    const test = approvers
       .filter((review) => review.state === 'approved')
       .map((review) => review.user.login);
 
-    console.log('Current approvers:', approvers);
+    console.log('Current approvers:', test);
 
     // Check if all the requested user reviewers exist in the list of approvers
-    const approversSet = new Set(approvers);
+    const approversSet = new Set(test);
     const correctUserReviews = requestedUsersArr.every((requestedUser) =>
       approversSet.has(requestedUser)
     );
@@ -214,7 +216,7 @@ module.exports = {
     // want to go through each team and see if there is a user from the list of approvers that satifies the team
     for (const requestedTeam of requestedTeamsArr) {
       console.log('current requestedTeam:', requestedTeam);
-      for (const approver of approvers) {
+      for (const approver of test) {
         console.log('current approver:', approver);
         const result = await isTeamMember(requestedTeam, approver);
         if (result) {
