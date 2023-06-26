@@ -184,7 +184,7 @@ module.exports = {
     console.log('listreviews:', approvers);
 
     const test = approvers
-      .filter((review) => review.state === 'approved')
+      .filter((review) => review.state === 'APPROVED')
       .map((review) => review.user.login);
 
     console.log('Current approvers:', test);
