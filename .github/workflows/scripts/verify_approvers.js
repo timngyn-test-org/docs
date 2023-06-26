@@ -117,7 +117,9 @@ module.exports = {
         },
         (response) => response.data
       )
-    ).find((artifact) => artifact.name.startsWith(prNumber));
+    ).find((artifact) => artifact.name.startsWith(prNumber)); // is `find()` okay to use here?
+    // I only create this file on PR open so there shouldn't be any duplicates right?
+    // What if someone creates a new workflow and tries to create the same file? 🤔
 
     console.log(artifact);
 
@@ -146,6 +148,8 @@ module.exports = {
       }
     } = context;
 
+    console.log(context);
+
     const artifactContents = fs
       .readFileSync(`./${artifactName}.txt`)
       .toString();
@@ -165,6 +169,8 @@ module.exports = {
     // then go through each requested reviewer and see if all the approves fit?
 
     // Get all current approvers
+    // This doesn't get the latest approver??
+    // does that mean this will only grab the previous approvers
     const approvers = (
       await github.paginate(
         github.rest.actions.listReviews,
