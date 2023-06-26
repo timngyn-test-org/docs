@@ -172,7 +172,7 @@ module.exports = {
     // This doesn't get the latest approver??
     // does that mean this will only grab the previous approvers
     const approvers = await github.paginate(
-      github.rest.actions.listReviews,
+      github.rest.pulls.listReviews,
       {
         owner: ownerLogin,
         repo: repoName,
@@ -181,7 +181,7 @@ module.exports = {
       (response) => response.data
     );
 
-    console.log(approvers);
+    console.log('listreviews:', approvers);
 
     const test = approvers
       .filter((review) => review.state === 'approved')
