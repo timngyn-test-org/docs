@@ -26,9 +26,9 @@ module.exports = {
     console.log('listRequestedReviewers users: ', users);
     console.log('listRequestedReviewers teams: ', teams);
 
-    const teamsArr = teams.map((e) => `@${orgLogin}/${e.slug}`);
+    const teamsArr = teams.map((team) => `${team.slug}`);
 
-    const usersArr = users.map((e) => `@${e.login}`);
+    const usersArr = users.map((user) => `${user.login}`);
 
     return `${teamsArr}\n${usersArr}`;
   }

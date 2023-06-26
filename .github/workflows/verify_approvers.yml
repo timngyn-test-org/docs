@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
       - name: Get requested reviewers artifact
-        uses: actions/github-script@v6.4.0
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410
         env:
           WORKSPACE: ${{ github.workspace }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { getRequstedReviewers } = require('./.github/workflows/scripts/verify_approvers.js');
+            const { getRequstedReviewersArtifact } = require('./.github/workflows/scripts/verify_approvers.js');
             const fs = require('fs');
             const artifactName = process.env.ARTIFACT_NAME;
             const prNumber = process.env.PR_NUMBER;
             const workspace = process.env.WORKSPACE
-            getRequstedReviewers({github, context, fs, workspace, artifactName, prNumber});
+            getRequstedReviewersArtifact({github, context, fs, workspace, artifactName, prNumber});
       - name: Unzip artifact
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}

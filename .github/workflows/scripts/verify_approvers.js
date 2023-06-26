@@ -1,5 +1,5 @@
 module.exports = {
-  getRequstedReviewers: async ({
+  getRequstedReviewersArtifact: async ({
     github,
     context,
     fs,
@@ -146,15 +146,73 @@ module.exports = {
       .readFileSync(`./${artifactName}.txt`)
       .toString();
 
-    const [teams, users] = artifactContents
+    const [requestedTeams, requestedUsers] = artifactContents
       .split('\n')
       .map((str) => str.trim());
 
-    console.log('teams:', teams);
+    console.log('teams:', requestedTeams.split(','));
 
-    console.log('users', users);
+    console.log('users', requestedUsers.split(','));
 
     // TODO: make a request to get all reviews and filter by only approves
     // then go through each requested reviewer and see if all the approves fit?
+
+    // Get all current approvers
+    const approvers = (
+      await github.paginate(
+        github.rest.actions.listReviews,
+        {
+          owner: ownerLogin,
+          repo: repoName,
+          pull_number: prNumber
+        },
+        (response) => response.data
+      )
+    )
+      .filter((review) => review.state === 'APPROVED')
+      .map((review) => review.user.login);
+
+    // Check if all the requested user reviewers exist in the list of approvers
+    const approversSet = new Set(approvers);
+    const correctUserReviews = requestedUsers.every((requestedUser) =>
+      approversSet.has(requestedUser)
+    );
+
+    const isTeamMember = async ({ team_slug, username }) => {
+      const response = await github.rest.teams.getMembershipForUserInOrg({
+        org: 'aws-amplify',
+        team_slug,
+        username
+      });
+
+      console.log(response);
+      console.log(response.data);
+
+      if (response.data && response.data.state === 'active') {
+        return true;
+      }
+
+      return false;
+    };
+
+    // Check if all the requested teams have an approver
+    // want to go through each team and see if there is a user from the list of approvers that satifies the team
+    for (const requestedTeam of requestedTeams) {
+      const [_, requestedTeamSlug] = requestedTeam.split('/');
+      for (const approver of approvers) {
+        const result = await isTeamMember(requestedTeamSlug, approver);
+        if (result) {
+          console.log(`${approver} is part of the team ${requestedTeamSlug}`);
+        } else {
+          console.log(
+            `${approver} is NOT part of the team ${requestedTeamSlug}`
+          );
+        }
+      }
+    }
+
+    // WHAT IF I just check to see if there is a requested reviewer who is a team?
+    // no wait that doesn't work because if someone from a team reviews but doesn't approve, then
+    // the team is "gone"
   }
 };
