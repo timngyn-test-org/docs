@@ -182,7 +182,7 @@ module.exports = {
         (response) => response.data
       )
     )
-      .filter((review) => review.state === 'APPROVED')
+      .filter((review) => review.state === 'approved')
       .map((review) => review.user.login);
 
     console.log('Current approvers:', approvers);
