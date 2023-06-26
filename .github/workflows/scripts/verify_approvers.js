@@ -140,7 +140,7 @@ module.exports = {
   verifyApprovers: async ({ github, context, fs, artifactName }) => {
     const {
       payload: {
-        pull_request: { prNumber },
+        pull_request: { number: prNumber },
         repository: {
           owner: { login: ownerLogin },
           name: repoName
