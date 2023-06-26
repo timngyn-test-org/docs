@@ -154,9 +154,12 @@ module.exports = {
       .split('\n')
       .map((str) => str.trim());
 
-    console.log('teams:', requestedTeams.split(','));
+    const requestedTeamsArr = requestedTeams.split(',');
+    const requestedUsersArr = requestedUsers.split(',');
 
-    console.log('users', requestedUsers.split(','));
+    console.log('teams:', requestedTeamsArr);
+
+    console.log('users', requestedUsersArr);
 
     // TODO: make a request to get all reviews and filter by only approves
     // then go through each requested reviewer and see if all the approves fit?
@@ -178,7 +181,7 @@ module.exports = {
 
     // Check if all the requested user reviewers exist in the list of approvers
     const approversSet = new Set(approvers);
-    const correctUserReviews = requestedUsers.every((requestedUser) =>
+    const correctUserReviews = requestedUsersArr.every((requestedUser) =>
       approversSet.has(requestedUser)
     );
 
@@ -201,7 +204,7 @@ module.exports = {
 
     // Check if all the requested teams have an approver
     // want to go through each team and see if there is a user from the list of approvers that satifies the team
-    for (const requestedTeam of requestedTeams) {
+    for (const requestedTeam of requestedTeamsArr) {
       for (const approver of approvers) {
         const result = await isTeamMember(requestedTeam, approver);
         if (result) {
