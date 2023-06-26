@@ -198,15 +198,12 @@ module.exports = {
     // Check if all the requested teams have an approver
     // want to go through each team and see if there is a user from the list of approvers that satifies the team
     for (const requestedTeam of requestedTeams) {
-      const [_, requestedTeamSlug] = requestedTeam.split('/');
       for (const approver of approvers) {
-        const result = await isTeamMember(requestedTeamSlug, approver);
+        const result = await isTeamMember(requestedTeam, approver);
         if (result) {
-          console.log(`${approver} is part of the team ${requestedTeamSlug}`);
+          console.log(`${approver} is part of the team ${requestedTeam}`);
         } else {
-          console.log(
-            `${approver} is NOT part of the team ${requestedTeamSlug}`
-          );
+          console.log(`${approver} is NOT part of the team ${requestedTeam}`);
         }
       }
     }
