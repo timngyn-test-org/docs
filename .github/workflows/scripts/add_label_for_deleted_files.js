@@ -1,5 +1,19 @@
 module.exports = {
-  addRedirectsNeededLabel: async ({ github, context, fs, artifactName }) => {
+  /**
+   * Add deleted-assets label if count of deleted files is greater than 0
+   *
+   * @param {Object} obj - Object parameters
+   * @param {String} obj.artifactName - Name of artifiact file to check
+   * @param {String} obj.label - Label to add to PR when deleted files are found from the specified paths
+   */
+  addLabelForDeletedFiles: async ({
+    github,
+    context,
+    fs,
+    core,
+    artifactName,
+    label
+  }) => {
     const {
       payload: {
         repository: {
@@ -32,9 +46,11 @@ module.exports = {
           owner: ownerLogin,
           repo: repoName,
           issue_number: prNumber,
-          labels: ['redirects-needed']
+          labels: [label]
         });
       }
+    } else {
+      core.setFailed(`Unable to parse ${artifactName}.txt`);
     }
   }
 };
