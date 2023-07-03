@@ -6,7 +6,7 @@ env:
   ARTIFACT_NAME: 'deletedAssetsArtifact'
   PATHS_TO_CHECK: 'public'
 jobs:
-  checkIf:
+  checkIfAssetsWereDeleted:
     name: Check if assets were deleted
     runs-on: ubuntu-latest
     steps:
